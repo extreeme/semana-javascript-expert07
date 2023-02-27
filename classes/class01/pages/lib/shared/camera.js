@@ -24,9 +24,9 @@ export default class Camera {
         camera.video.srcObject = stream
 
         //debug
-        // camera.video.height = 240
-        // camera.video.width = 320
-        // document.body.append(camera.video)
+        camera.video.height = 240
+        camera.video.width = 320
+        document.body.append(camera.video)
 
         await new Promise((resolve) => {
             camera.video.onloadedmetadata = () => {
