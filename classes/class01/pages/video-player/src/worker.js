@@ -7,7 +7,7 @@ import Service from "./service.js"
 // no processo principal é window
 // no worker é self
 
-const { tf, faceLandmarksDetection } = self
+const {tf, faceLandmarksDetection } = self
 tf.setBackend('webgl')
 
 const service = new Service({
@@ -16,11 +16,10 @@ const service = new Service({
 console.log('loading tf model')
 await service.loadModel()
 console.log('tf model loaded!')
-setTimeout(() => postMessage('READY'), 2000);
-
+postMessage('READY')
 
 onmessage = async ({ data: video }) => {
   const blinked = await service.handBlinked(video)
-  if (!blinked) return;
+  if(!blinked) return;
   postMessage({ blinked })
 }
