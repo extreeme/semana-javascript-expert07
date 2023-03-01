@@ -2,6 +2,7 @@ const { GestureDescription, Finger, FingerCurl } = window.fp
 
 const ScrollDownGesture = new GestureDescription('scroll-down') // ✊️
 const ScrollUpGesture = new GestureDescription('scroll-up') // 🖐
+const HangLooseGesture = new GestureDescription('hang-loose') //🤙
 
 
 // Scroll Down
@@ -28,14 +29,32 @@ for (let finger of Finger.all) {
 }
 
 
+//HangLoose
+//-----------------------------------------------------------------------------
+//thumb: NoCurl
+//Pinky: NoCurl
+//All other fingers: half with lower confidence and full curl with high confidence
+
+HangLooseGesture.addCurl(Finger.Thumb, FingerCurl.NoCurl, 1.0)
+HangLooseGesture.addCurl(Finger.Pinky, FingerCurl.NoCurl, 1.0)
+
+for (let finger of [Finger.Index, Finger.Middle, Finger.Ring]) {
+  HangLooseGesture.addCurl(finger, FingerCurl.FullCurl, 1.0)
+  HangLooseGesture.addCurl(finger, FingerCurl.HalfCurl, 0.9)
+}
+
+
+
 const knownGestures = [
   ScrollDownGesture,
   ScrollUpGesture,
+  HangLooseGesture
 ]
 
 const gestureStrings = {
   'scroll-up': '🖐',
-  'scroll-down': '✊️'
+  'scroll-down': '✊️',
+  'hang-loose': '🤙'
 }
 
 export {
